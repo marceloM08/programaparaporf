@@ -1,5 +1,48 @@
-﻿Random rnd = new Random();
+﻿
+Random rnd = new Random();
 int opcionPrincipal = 0;
+
+Ejercicio[] GenerarEjercicios(int cantidad)
+{ 
+    Ejercicio[] lista = new Ejercicio[cantidad];
+    for (int i = 0; i < cantidad; i++)
+    {
+        lista[i].Numero1 = rnd.Next(1, 50);
+        lista[i].Numero2 = rnd.Next(1, 50);
+        lista[i].Resultado = lista[i].Numero1 + lista[i].Numero2;
+    }
+    return lista;
+}
+
+
+void ResolverEjercicios(Ejercicio[] lista, int cantidadMostrar)
+{
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("\nResuelve estos ejercicios de suma:");
+    Console.ResetColor();
+
+    for (int i = 0; i < cantidadMostrar; i++)
+    {
+        int idx = rnd.Next(0, lista.Length);
+        int a = lista[idx].Numero1;
+        int b = lista[idx].Numero2;
+
+        Console.Write($"{a} + {b} = ");
+        int respuesta = int.Parse(Console.ReadLine());
+
+        if (respuesta == lista[idx].Resultado)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Correcto!");
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Incorrecto. La respuesta era {lista[idx].Resultado}");
+        }
+        Console.ResetColor();
+    }
+}
 
 do
 {
@@ -29,40 +72,8 @@ do
 
             if (opcionSub == 1)
             {
-
-                int[,] ejercicios = new int[10, 2];
-                for (int i = 0; i < 10; i++)
-                {
-                    ejercicios[i, 0] = rnd.Next(1, 50);
-                    ejercicios[i, 1] = rnd.Next(1, 50);
-                }
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\nResuelve estos ejercicios de suma:");
-                Console.ResetColor();
-
-
-                for (int i = 0; i < 3; i++)
-                {
-                    int idx = rnd.Next(0, 10);
-                    int a = ejercicios[idx, 0];
-                    int b = ejercicios[idx, 1];
-
-                    Console.Write($"{a} + {b} = ");
-                    int respuesta = int.Parse(Console.ReadLine());
-
-                    if (respuesta == a + b)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Correcto!");
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Incorrecto. La respuesta era {a + b}");
-                    }
-                    Console.ResetColor();
-                }
+                Ejercicio[] ejercicios = GenerarEjercicios(10);
+                ResolverEjercicios(ejercicios, 5);
             }
             else if (opcionSub == 2)
             {
@@ -97,3 +108,11 @@ do
     }
 
 } while (opcionPrincipal != 5);
+
+
+struct Ejercicio
+{
+    public int Numero1;
+    public int Numero2;
+    public int Resultado;
+}
