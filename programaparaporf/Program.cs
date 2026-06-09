@@ -8,7 +8,7 @@ void MenuInicial()
     Console.WriteLine("=== BIENVENIDO AL JUEGO DE MATEMÁTICAS ===");
     Console.ResetColor();
     Console.Write("Ingrese su nombre de jugador: ");
-    jugador = Console.ReadLine();
+    jugador = Console.ReadLine() ?? "";
 
     int opcion = 0;
     do
@@ -160,7 +160,7 @@ bool GenerarYResolver(string operacion, int dificultad, int cantidad, int minuto
         Console.Write($"{a} {SimboloOperacion(operacion)} {b} = ");
         try
         {
-            int respuesta = int.Parse(Console.ReadLine());
+            int respuesta = int.Parse(Console.ReadLine() ?? "");
             if (respuesta == resultado)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -215,9 +215,9 @@ void CargarProgreso()
     {
         using (StreamReader archivo = new StreamReader($"{jugador}.csv"))
         {
-            jugador = archivo.ReadLine();
-            mundoActual = int.Parse(archivo.ReadLine());
-            int dificultad = int.Parse(archivo.ReadLine());
+            jugador = archivo.ReadLine() ?? "";
+            mundoActual = int.Parse(archivo.ReadLine() ?? "");
+            int dificultad = int.Parse(archivo.ReadLine() ?? "");
             partidaGuardada = true;
         }
     }
