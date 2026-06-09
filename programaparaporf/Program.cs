@@ -24,7 +24,7 @@ void MenuInicial()
             Console.WriteLine("3. Cambiar dificultad");
             Console.WriteLine("4. Salir");
             Console.Write("Seleccione una opción: ");
-            opcion = int.Parse(Console.ReadLine());
+            opcion = LeerEntero("");
 
             switch (opcion)
             {
@@ -69,7 +69,7 @@ void SelectorDificultad()
         Console.WriteLine("2. Medio ");
         Console.WriteLine("3. Difícil (con tiempo)");
         Console.Write("Elige: ");
-        dif = int.Parse(Console.ReadLine());
+        dif = LeerEntero("");
 
         if (dif == 3)
         {
@@ -221,6 +221,18 @@ void CargarProgreso()
             partidaGuardada = true;
         }
     }
+}
+
+int LeerEntero(string mensaje)
+{
+    int valor;
+
+    while (!int.TryParse(Console.ReadLine(), out valor))
+    {
+        Console.WriteLine("Ingrese un número válido:");
+    }
+
+    return valor;
 }
 
 MenuInicial();
