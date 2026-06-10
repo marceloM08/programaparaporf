@@ -501,5 +501,4 @@ struct Ejercicio
     public int Numero2;
     public int Resultado;
     public string Operacion;
-    public int Dificultad;
-}
+    public 
