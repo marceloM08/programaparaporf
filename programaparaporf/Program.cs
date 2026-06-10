@@ -349,9 +349,7 @@ void MundoDivision(int dificultad)
 
         try
         {
-            int respuesta = int.Parse(entrada ?? "");
-            totalIntentos++;
-
+            int respuesta = int.Parse(Console.ReadLine());
             if (respuesta == resultado)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -411,83 +409,11 @@ void CargarProgreso()
     {
         using (StreamReader archivo = new StreamReader($"{jugador}.csv"))
         {
-            jugador = archivo.ReadLine() ?? "";
-            operacionActual = int.Parse(archivo.ReadLine() ?? "");
-            dificultadActual = int.Parse(archivo.ReadLine() ?? "");
-            restaDesbloqueada = archivo.ReadLine() == "1";
-            multiDesbloqueada = archivo.ReadLine() == "1";
-            divDesbloqueada = archivo.ReadLine() == "1";
+            jugador = archivo.ReadLine();
+            mundoActual = int.Parse(archivo.ReadLine());
+            int dificultad = int.Parse(archivo.ReadLine());
             partidaGuardada = true;
-
-            if (!intentos.ContainsKey("SumaF"))
-                InicializarEstadisticas();
         }
-    }
-}
-
-void MostrarEstadisticas()
-{
-    Console.Clear();
-    Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.WriteLine("=== ESTADÍSTICAS DEL JUGADOR ===");
-    Console.ResetColor();
-    Console.WriteLine($"Jugador: {jugador}");
-    Console.WriteLine("");
-
-    Console.WriteLine("SUMA:");
-    MostrarEstadisticasOp("Fácil", "SumaF");
-    MostrarEstadisticasOp("Medio", "SumaM");
-    MostrarEstadisticasOp("Difícil", "SumaD");
-    Console.WriteLine("");
-
-    Console.WriteLine("RESTA:");
-    MostrarEstadisticasOp("Fácil", "RestaF");
-    MostrarEstadisticasOp("Medio", "RestaM");
-    MostrarEstadisticasOp("Difícil", "RestaD");
-    Console.WriteLine("");
-
-    Console.WriteLine("MULTIPLICACIÓN:");
-    MostrarEstadisticasOp("Fácil", "MultiF");
-    MostrarEstadisticasOp("Medio", "MultiM");
-    MostrarEstadisticasOp("Difícil", "MultiD");
-    Console.WriteLine("");
-
-    Console.WriteLine("DIVISIÓN:");
-    MostrarEstadisticasOp("Fácil", "DivF");
-    MostrarEstadisticasOp("Medio", "DivM");
-    MostrarEstadisticasOp("Difícil", "DivD");
-    Console.WriteLine("");
-
-    Console.WriteLine("Presiona una tecla para volver...");
-    Console.ReadKey();
-}
-
-void MostrarEstadisticasOp(string dificultad, string clave)
-{
-    int intentosH = intentos[clave];
-    int aciertosH = aciertos[clave];
-
-    Console.Write($"  {dificultad}: {intentosH} intentos, {aciertosH} aciertos, ");
-
-    if (intentosH > 0)
-    {
-        double porcentaje = (aciertosH * 100.0) / intentosH;
-        Console.Write($"{porcentaje:F1}% de aciertos");
-    }
-    else
-    {
-        Console.Write("0% de aciertos");
-    }
-    Console.WriteLine("");
-}
-
-int LeerEntero(string mensaje)
-{
-    int valor;
-
-    while (!int.TryParse(Console.ReadLine(), out valor))
-    {
-        Console.WriteLine("Ingrese un número válido:");
     }
 
     return valor;
